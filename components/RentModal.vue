@@ -5,6 +5,7 @@
     <b-modal ref="my-modal" hide-footer title="Using Component Methods">
       <div class="calender-container d-flex">
         <div class="text-container px-1">
+          <h6>{{product.id}}</h6>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dignissimos doloremque doloribus hic, itaque nulla possimus quasi qui tempora voluptatum.</p>
         </div>
         <vc-date-picker
@@ -18,7 +19,11 @@
       <div class="container pt-2">
         <div class="row">
           <div class="col-md-6 col-sm-12">
-            <b-button id="order" variant="outline-success" block>Order</b-button>
+            <b-button id="order" variant="outline-success" block
+                      @click="()=>{
+                        addItem(product.id)
+                        hideModal()
+                      }">Order</b-button>
           </div>
           <div class="col-md-6 col-sm-12">
             <b-button class="mt-3" variant="outline-warning" @click="hideModal" block>Close Me</b-button>
@@ -32,6 +37,7 @@
 <script>
 export default {
   name:'Rent-Modal',
+  props:['product'],
   methods: {
     showModal() {
       this.$refs['my-modal'].show()
@@ -43,6 +49,11 @@ export default {
       // We pass the ID of the button that we want to return focus to
       // when the modal has hidden
       this.$refs['my-modal'].toggle('#toggle-btn')
+    },
+    addItem(id){
+      console.log(id)
+      this.$store.dispatch("addItemAction",id)
+      //this.$store.dispatch('addItemAction',id)
     }
   }
 }

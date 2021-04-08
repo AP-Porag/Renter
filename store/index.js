@@ -181,14 +181,22 @@ export const state = () => ({
 })
 
 export const mutations = {
-  addItem(state, id){
-    let item = state.products.find(product => product.id == id)
-    state.myRentals.push(item)
+  setRentalItem(state,payload){
+    state.myRentals.push(payload)
+  }
+}
+export const actions = {
+  addItemAction({state,commit},payload){
+    let item = state.products.find(product => product.id == payload)
+    commit('setRentalItem',item)
   },
 }
 
 export const getters = {
   getProductById: (state) => (id) => {
     return state.products.find(product => product.id == id)
+  },
+  getRentalItem(state){
+    return state.myRentals
   }
 }
